@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">ToDoList</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="active_filter">ACTIVE_TASKS</string>
+    <string name="today_filter">TODAY_TASKS</string>
+    <string name="later_filter">LATER_TASKS</string>
+    <string name="completed_filter">COMPLETED_TASKS</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="today">Today</string>
+    <string name="completed">Completed</string>
+    <string name="due">Due</string>
+    <string name="later">Later</string>
+
+    <!-- Preference Titles -->
+
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+    <string name="reminder_notification_channel_id" translatable="false">reminder channel</string>
+    <string name="reminder_notification_channel_name" translatable="true">Reminder</string>
+
+    <string name="reminder_notification_channel">Reminder</string>
+    <string name="notification_title">ToDoList</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="search_title">Search</string>
+</resources>

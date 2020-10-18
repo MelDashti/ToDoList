@@ -1,0 +1,122 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.todolist.home.HomeViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#4E6772"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/date_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center_horizontal"
+                app:chipSpacingHorizontal="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+
+                    android:id="@+id/active"
+                    style="@style/CustomChipTheme"
+                    android:layout_width="79dp"
+                    android:layout_marginStart="12dp"
+                    android:checked="true"
+                    android:onClick="@{()->viewModel.onChipClicked(@string/active_filter)}"
+                    android:text="Active"
+                    android:textAlignment="center" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/today"
+                    style="@style/CustomChipTheme"
+                    android:layout_width="79dp"
+                    android:onClick="@{()->viewModel.onChipClicked(@string/today_filter)}"
+                    android:text="@string/today" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/later"
+                    style="@style/CustomChipTheme"
+                    android:layout_width="79dp"
+                    android:onClick="@{()->viewModel.onChipClicked(@string/later_filter)}"
+                    android:text="@string/later" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/completed"
+                    style="@style/CustomChipTheme"
+                    android:layout_width="98dp"
+                    android:layout_marginEnd="12dp"
+                    android:onClick="@{()->viewModel.onChipClicked(@string/completed_filter)}"
+                    android:text="@string/completed" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/TextAppearance.MaterialComponents.Headline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_horizontal"
+                android:text="Today"
+                android:textColor="#FFFFFF"
+                android:textSize="26dp"
+                app:layout_constraintBottom_toTopOf="@+id/task_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.488"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date_list" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:id="@+id/task_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="15dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="14dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    tools:listitem="@layout/list_item_task">
+
+                </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:backgroundTint="#4F8F7D"
+            android:onClick="@{()->viewModel.onFabClicked()}"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
