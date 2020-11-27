@@ -1,15 +1,16 @@
 package com.example.todolist.viewpage
 
 import android.app.Application
-import android.content.Context
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist.Task
+import com.example.todolist.TaskDatabase
 import com.example.todolist.repository.TaskRepository
 import kotlinx.coroutines.*
 
-class ViewPageViewModel(val application: Application, val taskId: Long) : ViewModel() {
+class ViewPageViewModel @ViewModelInject constructor(private val repository: TaskRepository) : ViewModel() {
 
     val job = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + job);
@@ -21,12 +22,10 @@ class ViewPageViewModel(val application: Application, val taskId: Long) : ViewMo
     var task = MutableLiveData<Task?>()
 
     init {
-        initializeSelectedTask()
+        task.value = Task()
+    //        fetchTaskInfo()
     }
-
-    private val repository = TaskRepository(application)
-
-    private fun initializeSelectedTask() {
+    public fun fetchTaskInfo(taskId: Long) {
         uiScope.launch {
             task.value = repository.getTask(taskId)
             header.value = task.value?.header

@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
 import com.example.todolist.TaskDatabase
 import com.example.todolist.databinding.ViewPageFragmentBinding
+import com.example.todolist.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ViewPageFragment : DialogFragment() {
 
+    private val viewModel: ViewPageViewModel by viewModels()
 
     override fun onCreateView(
 
@@ -28,15 +33,9 @@ class ViewPageFragment : DialogFragment() {
         val application = requireNotNull(this.activity).application
 
         val h = ViewPageFragmentArgs.fromBundle(requireArguments()).taskId
-        Log.e("msgg", h.toString())
-        val viewModelFactory = ViewPageViewModelFactory(
-            application, h
-        )
-
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(ViewPageViewModel::class.java)
 
         binding.viewModel = viewModel
-
+        viewModel.fetchTaskInfo(h)
         binding.lifecycleOwner = this.viewLifecycleOwner
 
         viewModel.navigateBackToHome.observe(this, Observer {

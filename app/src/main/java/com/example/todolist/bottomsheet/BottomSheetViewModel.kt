@@ -11,6 +11,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.todolist.Task
+import com.example.todolist.TaskDatabase
 import com.example.todolist.receiver.AlarmReceiver
 import com.example.todolist.repository.TaskRepository
 import kotlinx.coroutines.*
@@ -59,14 +60,14 @@ public class BottomSheetViewModel(application: Application) : AndroidViewModel(a
     private fun addNewTask(calendar: Calendar?) {
 
         if (header.value.equals(null)) {
-            showError() }
-        else {
+            showError()
+        } else {
             task.header = header.value.toString()
             if (calendar != null) {
                 task.timeInMillis = calendar.timeInMillis
             }
-            scope.launch(Dispatchers.IO){
-                val taskIdd =  repository.insertTask(task)
+            scope.launch(Dispatchers.IO) {
+                val taskIdd = repository.insertTask(task)
                 if (header.value != null && calendar != null)
                     startTimer(calendar, taskIdd)
             }
@@ -79,7 +80,7 @@ public class BottomSheetViewModel(application: Application) : AndroidViewModel(a
         addNewTask(calendar)
     }
 
-    private val repository = TaskRepository(application)
+    private val repository = TaskRepository(TaskDatabase.getInstance(application).taskDatabaseDao)
 
     fun navigateBack() {
         _navigateBackToHome.value = true
@@ -100,7 +101,12 @@ public class BottomSheetViewModel(application: Application) : AndroidViewModel(a
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.putExtra("taskId", taskIdd)
         intent.putExtra("message", header.value.toString())
-        val pendingIntent = PendingIntent.getBroadcast(getApplication<Application>(), (Date().time / 1000L % Int.MAX_VALUE).toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            getApplication<Application>(),
+            (Date().time / 1000L % Int.MAX_VALUE).toInt(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar!!.timeInMillis, pendingIntent)
     }
 }

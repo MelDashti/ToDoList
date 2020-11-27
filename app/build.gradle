@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
 
@@ -10,7 +11,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions{
+    kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     compileSdkVersion 29
@@ -36,6 +37,11 @@ android {
 }
 
 dependencies {
+    implementation("com.google.dagger:hilt-android:$hilt_version")
+    kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-alpha02")
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
 
@@ -47,12 +53,10 @@ dependencies {
     //noinspection GradleDependency
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 
-
 // Android KTX
     implementation "androidx.core:core-ktx:$version_core"
 
 // Navigation
-
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
 
@@ -82,19 +86,17 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-
 // Logging
     implementation "com.jakewharton.timber:timber:$version_timber"
-
 // Glide for images
     implementation "com.github.bumptech.glide:glide:$version_glide"
-
 // Room database
     implementation "androidx.room:room-runtime:2.2.5"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.1.1'
     kapt "androidx.room:room-compiler:2.2.5"
-
 // WorkManager
     implementation 'androidx.work:work-runtime-ktx:2.4.0'
+
+
 }

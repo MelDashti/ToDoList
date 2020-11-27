@@ -3,6 +3,7 @@ package com.example.todolist.home
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.todolist.Task
 import com.example.todolist.TaskDatabaseDao
@@ -12,7 +13,7 @@ import kotlinx.coroutines.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-public class HomeViewModel(private val repository: TaskRepository) :
+public class HomeViewModel @ViewModelInject constructor(private val repository: TaskRepository) :
     ViewModel() {
 
     private var currentFiltering = MutableLiveData<FilterType>(FilterType.ACTIVE_TASKS)
@@ -93,7 +94,6 @@ public class HomeViewModel(private val repository: TaskRepository) :
 
 
     fun onChipClicked(filterType: String) {
-        Toast.makeText(repository.fapplication, "HEYYYY", Toast.LENGTH_LONG).show()
 
         currentFiltering.value = when (filterType) {
             "TODAY_TASKS" -> FilterType.TODAY_TASKS
@@ -143,11 +143,3 @@ public class HomeViewModel(private val repository: TaskRepository) :
 //        }
 //    }
 
-
-@Suppress("UNCHECKED_CAST")
-class TasksViewModelFactory(
-    private val tasksRepository: TaskRepository
-) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>) =
-        (HomeViewModel(tasksRepository) as T)
-}

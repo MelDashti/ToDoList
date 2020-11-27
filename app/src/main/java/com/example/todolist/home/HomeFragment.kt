@@ -24,24 +24,22 @@ import com.example.todolist.TaskDatabase
 import com.example.todolist.databinding.FragmentHomeBinding
 import com.example.todolist.repository.TaskRepository
 import com.google.android.material.chip.Chip
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+// annotating android classes with @androidEntryPoint creates a dependency container that follows the android class lifecycle
+//now hilt will create a dependencies container that is attached to homefragment's lifecycle and will be able to inject instances to Home fragment
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
-    private val viewModel by viewModels<HomeViewModel> {
-        TasksViewModelFactory(TaskRepository(requireActivity().application))
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this.viewLifecycleOwner
-        setUpTaskAdapter()
     }
 
-    private fun setUpTaskAdapter() {
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +66,12 @@ class HomeFragment : Fragment() {
 
         val dividerItemDecoration =
             DividerItemDecoration(binding.taskList.context, DividerItemDecoration.VERTICAL)
-       dividerItemDecoration.setDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.divider)!!)
+        dividerItemDecoration.setDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.divider
+            )!!
+        )
 
         binding.taskList.addItemDecoration(dividerItemDecoration)
         viewModel.navigateToBottomSheet.observe(viewLifecycleOwner, Observer {

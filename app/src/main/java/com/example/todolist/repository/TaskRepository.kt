@@ -10,21 +10,9 @@ import com.example.todolist.TaskDatabaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-public class TaskRepository() {
-    var fapplication: Application? = null
-
-    constructor(application: Application) : this() {
-        fapplication = application
-        val databaseRef = TaskDatabase.getInstance(application)
-        database = databaseRef.taskDatabaseDao
-    }
-
-    constructor(databaseDao: TaskDatabaseDao) : this() {
-        database = databaseDao
-    }
-
-    private lateinit var database: TaskDatabaseDao
+public class TaskRepository @Inject constructor(private val database: TaskDatabaseDao) {
 
     public fun searchTask(query: String?): LiveData<List<Task>> {
         return database.getSearchResult(query)
@@ -67,7 +55,7 @@ public class TaskRepository() {
 
 
     public suspend fun insertTask(task: Task): Long {
-            return database.insert(task)
+        return database.insert(task)
     }
 
     suspend fun delete(task: Task?) {
