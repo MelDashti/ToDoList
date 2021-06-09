@@ -5,15 +5,19 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.todolist.Task
 import com.example.todolist.TaskDatabase
 import com.example.todolist.repository.TaskRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class ViewPageViewModel @ViewModelInject constructor(private val repository: TaskRepository) : ViewModel() {
+@HiltViewModel
+class ViewPageViewModel @Inject constructor(
+    private val repository: TaskRepository
+) : ViewModel() {
 
-    val job = Job()
-    val uiScope = CoroutineScope(Dispatchers.Main + job);
     private val _navigateBackToHome = MutableLiveData<Boolean>()
     public val navigateBackToHome: LiveData<Boolean>
         get() = _navigateBackToHome
@@ -22,11 +26,13 @@ class ViewPageViewModel @ViewModelInject constructor(private val repository: Tas
     var task = MutableLiveData<Task?>()
 
     init {
+
         task.value = Task()
-    //        fetchTaskInfo()
+
     }
+
     public fun fetchTaskInfo(taskId: Long) {
-        uiScope.launch {
+        viewModelScope.launch {
             task.value = repository.getTask(taskId)
             header.value = task.value?.header
             body.value = task.value?.body
@@ -34,17 +40,18 @@ class ViewPageViewModel @ViewModelInject constructor(private val repository: Tas
     }
 
     public fun deleteTask() {
-        uiScope.launch {
+        viewModelScope.launch {
 
             repository.delete(task.value)
         }
-        _navigateBackToHome.value = true }
+        _navigateBackToHome.value = true
+    }
 
     var header = MutableLiveData<String>()
     var body = MutableLiveData<String>()
 
     public fun updateTask() {
-        uiScope.launch {
+        viewModelScope.launch {
             task.value!!.header = header.value as String
             task.value!!.body = body.value as String
             repository.update(task.value)
@@ -66,6 +73,5 @@ class ViewPageViewModel @ViewModelInject constructor(private val repository: Tas
 
     override fun onCleared() {
         super.onCleared()
-        job.cancel()
     }
 }

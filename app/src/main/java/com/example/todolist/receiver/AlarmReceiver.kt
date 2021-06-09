@@ -16,7 +16,7 @@ class AlarmReceiver : BroadcastReceiver() {
             context!!,
             NotificationManager::class.java
         ) as NotificationManager
-        notificationManager.sendNotification(message, context, taskId)
+        notificationManager.sendNotification(message!!, context, taskId)
         intent!!.removeExtra("message")
         intent!!.removeExtra("taskId")
 

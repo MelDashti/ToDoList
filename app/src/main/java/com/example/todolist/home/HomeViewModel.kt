@@ -9,31 +9,23 @@ import com.example.todolist.Task
 import com.example.todolist.TaskDatabaseDao
 import com.example.todolist.TaskDatabaseDao_Impl
 import com.example.todolist.repository.TaskRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-public class HomeViewModel @ViewModelInject constructor(private val repository: TaskRepository) :
+@HiltViewModel
+public class HomeViewModel @Inject constructor(private val repository: TaskRepository) :
     ViewModel() {
 
     private var currentFiltering = MutableLiveData<FilterType>(FilterType.ACTIVE_TASKS)
-
     //this will update your list
     private val _forceUpdate = MutableLiveData<Boolean>(false)
-
-
     private val _tasks = repository.getAllTasks()
-
     val tasks: LiveData<List<Task>> = _tasks
-
-    private val viewModelJob = Job()
-
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     private val _navigateToBottomSheet = MutableLiveData<Boolean>()
-
     val navigateToBottomSheet: LiveData<Boolean> = _navigateToBottomSheet
-
     private val _query = MutableLiveData<String>()
 
     val chipFilterResults: LiveData<List<Task>> = _forceUpdate.switchMap { hey: Boolean ->
@@ -113,13 +105,11 @@ public class HomeViewModel @ViewModelInject constructor(private val repository: 
         _query.value = query
     }
 
-
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
     }
 
-    //here we are gonna change the filter type set as default usinig this method
+    //here we are gonna change the filter type set as default using this method
     fun setFiltering(filter: FilterType) {
         currentFiltering.value = filter
 //depending on the filter type,we set the filtering label, icon labels, etc.
@@ -138,7 +128,7 @@ public class HomeViewModel @ViewModelInject constructor(private val repository: 
 //    private val _latestTask = MutableLiveData<Task?>()
 
 //    private fun initializeLatestTask() {
-//        uiScope.launch {
+//        viewModelScope.launch {
 //            _latestTask.value = repository.getLatestTaskFromDatabase()
 //        }
 //    }

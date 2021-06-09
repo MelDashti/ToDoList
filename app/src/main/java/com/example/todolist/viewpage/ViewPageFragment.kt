@@ -20,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ViewPageFragment : DialogFragment() {
 
     private val viewModel: ViewPageViewModel by viewModels()
-
     override fun onCreateView(
 
         inflater: LayoutInflater, container: ViewGroup?,

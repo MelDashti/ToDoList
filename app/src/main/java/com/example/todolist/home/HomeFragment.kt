@@ -40,7 +40,6 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this.viewLifecycleOwner
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,11 +96,9 @@ class HomeFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.overflow_menu, menu)
         val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-
 //        (menu.findItem(R.id.search_bar).actionView as SearchView).apply {
 //            setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
 //        }
-
         val searchItem = menu.findItem(R.id.search_bar)
         val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
         searchView.queryHint = "Search Tasks"

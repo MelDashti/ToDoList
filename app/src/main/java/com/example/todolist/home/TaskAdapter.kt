@@ -52,8 +52,6 @@ class TaskViewHolder private constructor(val binding: ListItemTaskBinding) :
         val ssd = String.format("%d:%02d:%02d", h, m, s)
         val dateString: String = simpleDateFormat.format(item.timeInMillis)
 
-
-
 //        binding.textView3.text = dateString
 //        binding.textView4.text = ssd
         binding.clickListener = clickListener
