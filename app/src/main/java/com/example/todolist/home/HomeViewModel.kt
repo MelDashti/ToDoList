@@ -20,6 +20,7 @@ public class HomeViewModel @Inject constructor(private val repository: TaskRepos
     ViewModel() {
 
     private var currentFiltering = MutableLiveData<FilterType>(FilterType.ACTIVE_TASKS)
+
     //this will update your list
     private val _forceUpdate = MutableLiveData<Boolean>(false)
     private val _tasks = repository.getAllTasks()
@@ -27,6 +28,9 @@ public class HomeViewModel @Inject constructor(private val repository: TaskRepos
     private val _navigateToBottomSheet = MutableLiveData<Boolean>()
     val navigateToBottomSheet: LiveData<Boolean> = _navigateToBottomSheet
     private val _query = MutableLiveData<String>()
+    private val _startSearch = MutableLiveData<Boolean>()
+    val startSearch: LiveData<Boolean> = _startSearch
+
 
     val chipFilterResults: LiveData<List<Task>> = _forceUpdate.switchMap { hey: Boolean ->
         if (hey) {
@@ -36,6 +40,7 @@ public class HomeViewModel @Inject constructor(private val repository: TaskRepos
         }
         return@switchMap _tasks
     }
+
 
     private fun chipFiltering(list: List<Task>): LiveData<List<Task>> {
         val list4 = MutableLiveData<List<Task>>()
@@ -98,7 +103,9 @@ public class HomeViewModel @Inject constructor(private val repository: TaskRepos
 
 
     init {
-//        initializeLatestTask()
+        _startSearch.value = false
+        searchNow("")
+        //        initializeLatestTask()
     }
 
     fun searchNow(query: String?) {
@@ -116,6 +123,10 @@ public class HomeViewModel @Inject constructor(private val repository: TaskRepos
 
     }
 
+    fun startSearch() {
+        _startSearch.value = true
+    }
+
     fun onFabClicked() {
         _navigateToBottomSheet.value = true
     }
@@ -123,13 +134,5 @@ public class HomeViewModel @Inject constructor(private val repository: TaskRepos
     fun onNavigatedToSearch() {
         _navigateToBottomSheet.value = false
     }
+
 }
-
-//    private val _latestTask = MutableLiveData<Task?>()
-
-//    private fun initializeLatestTask() {
-//        viewModelScope.launch {
-//            _latestTask.value = repository.getLatestTaskFromDatabase()
-//        }
-//    }
-

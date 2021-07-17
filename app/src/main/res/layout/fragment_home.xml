@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.todolist.home.HomeViewModel" />
@@ -19,13 +20,18 @@
             android:background="@color/primaryColor"
             android:orientation="vertical">
 
+            <include
+                android:id="@+id/toolbarRef"
+                layout="@layout/toolbar_layout"
+                app:secondaryViewModel="@{viewModel}" />
+
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/date_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
                 app:chipSpacingHorizontal="17dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,23 +77,21 @@
             </com.google.android.material.chip.ChipGroup>
 
 
+            <androidx.recyclerview.widget.RecyclerView
 
+                android:id="@+id/task_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                android:paddingStart="15dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="14dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                tools:listitem="@layout/list_item_task">
 
-                <androidx.recyclerview.widget.RecyclerView
-
-                    android:id="@+id/task_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingStart="15dp"
-                    android:paddingTop="16dp"
-                    android:paddingEnd="14dp"
-                    android:orientation="vertical"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5"
-                    tools:listitem="@layout/list_item_task">
-
-                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
 

@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
 
         binding.viewModel = viewModel
+        binding.toolbarRef.secondaryViewModel = viewModel
         val adapter = TaskAdapter(TaskListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToViewPageFragment(it)
@@ -83,29 +84,33 @@ class HomeFragment : Fragment() {
             adapter.submitList(it)
         })
 
-        setHasOptionsMenu(true)
+        viewModel.startSearch.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                initializeSearch()
+                binding.dateList.visibility = View.GONE } })
 
+        setHasOptionsMenu(true)
         return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.overflow_menu, menu)
-        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-//        (menu.findItem(R.id.search_bar).actionView as SearchView).apply {
-//            setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
-//        }
-        val searchItem = menu.findItem(R.id.search_bar)
-        val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
+    }
+
+    private fun initializeSearch() {
+        val searchView = binding.toolbarRef.searchBar
         searchView.queryHint = "Search Tasks"
         searching(searchView)
     }
+
 
     private fun searching(search: androidx.appcompat.widget.SearchView) {
         search.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("Not yet implemented")
+
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
