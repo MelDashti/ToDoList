@@ -27,6 +27,10 @@ public class BottomSheetViewModel(application: Application) : AndroidViewModel(a
     private var taskId: Long = 0
     private lateinit var task: Task
     var header = MutableLiveData<String>()
+    var body = MutableLiveData<String>()
+    private val _navigateToNote = MutableLiveData<Boolean>()
+    public val navigateToNote: LiveData<Boolean>
+        get() = _navigateToNote
 
     private val _navigateToTime = MutableLiveData<Boolean>()
     public val navigateToTime: LiveData<Boolean>
@@ -48,6 +52,14 @@ public class BottomSheetViewModel(application: Application) : AndroidViewModel(a
         job.cancel()
     }
 
+    fun navigateToNote() {
+        _navigateToNote.value = true
+    }
+
+    fun finishedNavNote() {
+        _navigateToNote.value = false
+    }
+
     fun navigateToTime() {
         Log.i("hey", "haa")
         _navigateToTime.value = true
@@ -63,6 +75,7 @@ public class BottomSheetViewModel(application: Application) : AndroidViewModel(a
             showError()
         } else {
             task.header = header.value.toString()
+            task.body = body.value.toString()
             if (calendar != null) {
                 task.timeInMillis = calendar.timeInMillis
             }

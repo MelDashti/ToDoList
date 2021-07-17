@@ -30,7 +30,6 @@ class BottomSheetFragment : BottomSheetDialogFragment(), DatePickerDialog.OnDate
     private var year = 0
     private var hour = 0
     private var minute = 0
-
     private var calendar: Calendar? = null
 
     override fun onCreateView(
@@ -48,14 +47,24 @@ class BottomSheetFragment : BottomSheetDialogFragment(), DatePickerDialog.OnDate
                 viewModel.finishedNavTime()
             }
         })
+
+        viewModel.navigateToNote.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                viewDataBinding.noteText.visibility = View.VISIBLE
+            }
+        })
+
         viewModel.navigateBackToHome.observe(viewLifecycleOwner, Observer {
             if (it) {
-                viewModel.addNew( calendar)
+                viewModel.addNew(calendar)
                 findNavController().popBackStack()
                 viewModel.finishedNav()
             }
         })
-        createChannel(getString(R.string.reminder_notification_channel_id), getString(R.string.reminder_notification_channel_name))
+        createChannel(
+            getString(R.string.reminder_notification_channel_id),
+            getString(R.string.reminder_notification_channel_name)
+        )
         return viewDataBinding.root
     }
 
@@ -91,6 +100,9 @@ class BottomSheetFragment : BottomSheetDialogFragment(), DatePickerDialog.OnDate
             notificationChannel.enableVibration(true)
             notificationChannel.lightColor = Color.RED
             notificationChannel.description = "Aye what's poppin"
-            val notificationManager = requireActivity().getSystemService(NotificationManager::class.java) as NotificationManager
-            notificationManager.createNotificationChannel(notificationChannel) } }
+            val notificationManager =
+                requireActivity().getSystemService(NotificationManager::class.java) as NotificationManager
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+    }
 }

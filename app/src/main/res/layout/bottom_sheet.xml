@@ -43,14 +43,33 @@
             app:layout_constraintStart_toEndOf="@+id/editText"
             app:layout_constraintTop_toTopOf="@+id/editText" />
 
+        <EditText
+            android:id="@+id/noteText"
+            android:layout_width="354dp"
+            android:layout_height="156dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:hint="Enter Your Note"
+            android:inputType="text|textMultiLine|textCapSentences"
+            android:text="@={viewModel.body}"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText"
+            app:layout_constraintVertical_bias="0.0" />
+
+
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText"
+            app:layout_constraintTop_toBottomOf="@+id/noteText"
             app:selectionRequired="true">
 
             <com.google.android.material.chip.Chip
@@ -61,6 +80,7 @@
 
             <com.google.android.material.chip.Chip
                 style="@style/ChipForBottomView"
+                android:onClick="@{()->viewModel.navigateToNote()}"
                 android:text="Note"
                 app:chipIcon="@drawable/ic_description_24px" />
 

@@ -5,7 +5,6 @@
 
     <data>
 
-
         <variable
             name="clickListener"
             type="com.example.todolist.home.TaskListener" />
@@ -15,77 +14,84 @@
             type="com.example.todolist.Task" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="63dp"
-        android:background="@drawable/ic_rectangle_1"
-        android:onClick="@{() -> clickListener.onCLick(task)}">
+        android:layout_height="120dp"
+        app:cardBackgroundColor="@color/primaryDarkColor"
+        app:cardCornerRadius="8dp">
 
-        <!--        <ImageButton-->
-        <!--            android:id="@+id/button"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="16dp"-->
-        <!--            android:layout_marginTop="12dp"-->
-        <!--            android:layout_marginBottom="8dp"-->
-        <!--            android:background="@drawable/custom_check_box"-->
-        <!--            app:layout_constraintBottom_toTopOf="@+id/guideline"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintVertical_bias="0.4" />-->
+        <androidx.constraintlayout.widget.ConstraintLayout
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            style="@style/TextAppearance.MaterialComponents.Headline4"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/completed"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:updateText="@{task}" />
-        <!--            app:layout_constraintBottom_toBottomOf="@+id/button"-->
-        <!--            app:layout_constraintEnd_toStartOf="@+id/textView3"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/button"-->
-        <!--            app:layout_constraintTop_toTopOf="@+id/button"-->
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{() -> clickListener.onCLick(task)}">
 
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="75dp" />
+            <ImageButton
+                android:id="@+id/clipboardIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.13"
+                app:srcCompat="@drawable/clipboard" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView3"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginEnd="8dp"-->
-        <!--            android:layout_marginBottom="8dp"-->
-        <!--            android:text="TextView"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintVertical_bias="1.0" />-->
+            <ImageButton
+                android:id="@+id/taskDoneButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.13"
+                app:srcCompat="@drawable/tick" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView4"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="8dp"-->
-        <!--            android:layout_marginTop="8dp"-->
-        <!--            android:layout_marginEnd="8dp"-->
-        <!--            android:layout_marginBottom="8dp"-->
-        <!--            android:text="TextView"-->
-        <!--            app:layout_constraintBottom_toTopOf="@+id/guideline"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/textView"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="8dp"
+                android:singleLine="true"
+                android:text="NEW TASK"
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toStartOf="@+id/taskDoneButton"
+                app:layout_constraintStart_toEndOf="@+id/clipboardIcon"
+                app:layout_constraintTop_toTopOf="@+id/clipboardIcon"
+                app:updateText="@{task}" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:lines="3"
+                android:text="@{task.body}"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/clipboardIcon"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

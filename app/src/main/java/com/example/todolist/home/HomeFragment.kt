@@ -35,10 +35,6 @@ class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        binding.lifecycleOwner = this.viewLifecycleOwner
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
