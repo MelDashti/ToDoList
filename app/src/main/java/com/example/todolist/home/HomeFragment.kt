@@ -1,31 +1,16 @@
 package com.example.todolist.home
 
-import android.app.SearchManager
-import android.content.ComponentName
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
-import android.widget.SearchView.OnQueryTextListener
-import androidx.fragment.app.Fragment
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.todolist.MainActivity
 import com.example.todolist.R
-import com.example.todolist.TaskDatabase
-
 import com.example.todolist.databinding.FragmentHomeBinding
-import com.example.todolist.repository.TaskRepository
-import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 // annotating android classes with @androidEntryPoint creates a dependency container that follows the android class lifecycle
 //now hilt will create a dependencies container that is attached to homefragment's lifecycle and will be able to inject instances to Home fragment
@@ -42,8 +27,8 @@ class HomeFragment : Fragment() {
     ): View? {
 
         binding = FragmentHomeBinding.inflate(inflater)
-
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this.viewLifecycleOwner
         binding.toolbarRef.secondaryViewModel = viewModel
         val adapter = TaskAdapter(TaskListener {
             findNavController().navigate(
@@ -87,7 +72,9 @@ class HomeFragment : Fragment() {
         viewModel.startSearch.observe(viewLifecycleOwner, Observer {
             if (it) {
                 initializeSearch()
-                binding.dateList.visibility = View.GONE } })
+                binding.dateList.visibility = View.GONE
+            }
+        })
 
         setHasOptionsMenu(true)
         return binding.root
@@ -100,7 +87,7 @@ class HomeFragment : Fragment() {
 
     private fun initializeSearch() {
         val searchView = binding.toolbarRef.searchBar
-        searchView.queryHint = "Search Tasks"
+        searchView.isIconified = false
         searching(searchView)
     }
 
@@ -109,7 +96,6 @@ class HomeFragment : Fragment() {
         search.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
                 return false
             }
 
@@ -117,8 +103,6 @@ class HomeFragment : Fragment() {
                 viewModel.searchNow(newText)
                 return false
             }
-
-
         })
     }
 

@@ -27,7 +27,7 @@ public class TaskAdapter(val clickListener: TaskListener) :
 
 class TaskDiffUtilCallback : DiffUtil.ItemCallback<Task>() {
     override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
-        return oldItem === newItem
+        return oldItem._id.toInt() == newItem._id.toInt()
     }
 
     override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
@@ -44,20 +44,14 @@ class TaskViewHolder private constructor(val binding: ListItemTaskBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Task, clickListener: TaskListener) {
         binding.task = item
-        val simpleDateFormat = SimpleDateFormat(" dd/MM/yyyy")
-        val seconds = item.timeInMillis
-        val s = seconds % 60
-        val m = seconds / 60 % 60
-        val h = seconds / (60 * 60) % 24
-        val ssd = String.format("%d:%02d:%02d", h, m, s)
-        val dateString: String = simpleDateFormat.format(item.timeInMillis)
 
-//        binding.textView3.text = dateString
-//        binding.textView4.text = ssd
+        binding.taskDoneButton.setOnClickListener {
+            binding.textView
+            deleteTaskMethod(item)
+        }
+
+
         binding.clickListener = clickListener
-//        binding.button.setOnClickListener {
-//            deleteTaskMethod(item)
-//        }
     }
 
     private fun deleteTaskMethod(item: Task) {

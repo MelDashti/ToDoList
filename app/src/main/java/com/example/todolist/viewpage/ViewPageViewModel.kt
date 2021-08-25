@@ -1,16 +1,13 @@
 package com.example.todolist.viewpage
 
-import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todolist.Task
-import com.example.todolist.TaskDatabase
 import com.example.todolist.repository.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +19,9 @@ class ViewPageViewModel @Inject constructor(
     public val navigateBackToHome: LiveData<Boolean>
         get() = _navigateBackToHome
 
+    private val _navigateToDatePicker = MutableLiveData<Boolean>()
+    public val navigateToDatePicker: LiveData<Boolean>
+        get() = _navigateToDatePicker
 
     var task = MutableLiveData<Task?>()
 
@@ -36,8 +36,16 @@ class ViewPageViewModel @Inject constructor(
             task.value = repository.getTask(taskId)
             header.value = task.value?.header
             body.value = task.value?.body
+
         }
     }
+
+
+    public fun showReminder() {
+        _navigateToDatePicker.value = true
+    }
+
+
 
     public fun deleteTask() {
         viewModelScope.launch {
@@ -50,10 +58,15 @@ class ViewPageViewModel @Inject constructor(
     var header = MutableLiveData<String>()
     var body = MutableLiveData<String>()
 
+
+    public fun addOrRemoveReminder() {
+
+    }
+
     public fun updateTask() {
         viewModelScope.launch {
             task.value!!.header = header.value as String
-            task.value!!.body = body.value as String
+            task.value!!.body = body.value
             repository.update(task.value)
         }
         _navigateBackToHome.value = true
@@ -73,5 +86,9 @@ class ViewPageViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
+    }
+
+    fun finishedSettingReminder() {
+        _navigateToDatePicker.value = false
     }
 }

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.todolist.viewpage.ViewPageViewModel" />
@@ -33,6 +32,38 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/deletebutton" />
 
+        <LinearLayout
+            android:id="@+id/reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{()->viewModel.showReminder()}"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/username"
+            app:layout_constraintEnd_toStartOf="@+id/updateButton"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"
+            >
+
+            <ImageButton
+                android:id="@+id/reminderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/timer_white_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/secondaryTextColor"
+                app:addTime="@{viewModel.task}"
+                app:layout_constraintEnd_toEndOf="@+id/reminderButton" />
+
+        </LinearLayout>
+
         <ImageButton
             android:id="@+id/updateButton"
             android:layout_width="31dp"
@@ -40,7 +71,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{()-> viewModel.updateTask()}"

@@ -55,6 +55,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -75,21 +76,35 @@
                 app:layout_constraintEnd_toStartOf="@+id/taskDoneButton"
                 app:layout_constraintStart_toEndOf="@+id/clipboardIcon"
                 app:layout_constraintTop_toTopOf="@+id/clipboardIcon"
-                app:updateText="@{task}" />
+                app:updateHeader="@{task}" />
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:lines="3"
-                android:text="@{task.body}"
+                app:updateText="@{task}"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/time"
                 app:layout_constraintStart_toStartOf="@+id/clipboardIcon"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:singleLine="true"
+                android:textColor="@color/primaryLightColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:addTime="@{task}"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

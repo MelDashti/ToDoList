@@ -6,7 +6,7 @@ import androidx.room.*
 import androidx.room.Room.databaseBuilder
 import java.util.*
 
-@Database(entities = [Task::class], version = 6, exportSchema = true)
+@Database(entities = [Task::class], version = 8, exportSchema = true)
 abstract class TaskDatabase : RoomDatabase() {
     abstract val taskDatabaseDao: TaskDatabaseDao
 
@@ -21,7 +21,7 @@ abstract class TaskDatabase : RoomDatabase() {
                     instance = databaseBuilder(
                         context.applicationContext,
                         TaskDatabase::class.java,
-                        "sleep_history_database"
+                        "task_database"
                     )
                         .fallbackToDestructiveMigration()
                         .build()
@@ -38,9 +38,9 @@ public data class Task(
     @PrimaryKey(autoGenerate = true)
     var _id: Long = 0L,
     var header: String = "",
-    var body: String = "",
+    var body: String? = null,
 //    var calendar: Calendar? = null,
-    var timeInMillis:Long = 0L,
+    var timeInMillis: Long = 0L,
     var checked: Boolean = false
 )
 
@@ -52,7 +52,7 @@ public interface TaskDatabaseDao {
     @Update
     fun update(task: Task)
 
-    @Query(value = "select * from task_table order by _id desc")
+    @Query(value = "select * from task_table")
     fun getAllTasks(): LiveData<List<Task>>
 
     @Query("select*from task_table where header like '%' || :value || '%' ")

@@ -74,8 +74,8 @@ public class BottomSheetViewModel(application: Application) : AndroidViewModel(a
         if (header.value.equals(null)) {
             showError()
         } else {
-            task.header = header.value.toString()
-            task.body = body.value.toString()
+            task.header = header.value!!
+            task.body = body.value
             if (calendar != null) {
                 task.timeInMillis = calendar.timeInMillis
             }

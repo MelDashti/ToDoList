@@ -41,7 +41,6 @@
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-
                     android:id="@+id/active"
                     style="@style/CustomChipTheme"
                     android:layout_width="79dp"
@@ -76,7 +75,6 @@
 
             </com.google.android.material.chip.ChipGroup>
 
-
             <androidx.recyclerview.widget.RecyclerView
 
                 android:id="@+id/task_list"
@@ -93,7 +91,6 @@
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/bottom_sheet"
