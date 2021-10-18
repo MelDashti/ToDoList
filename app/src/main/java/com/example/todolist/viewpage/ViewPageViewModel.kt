@@ -8,6 +8,7 @@ import com.example.todolist.Task
 import com.example.todolist.repository.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,6 +31,9 @@ class ViewPageViewModel @Inject constructor(
         task.value = Task()
 
     }
+
+
+
 
     public fun fetchTaskInfo(taskId: Long) {
         viewModelScope.launch {
@@ -59,7 +63,7 @@ class ViewPageViewModel @Inject constructor(
     var body = MutableLiveData<String>()
 
 
-    public fun addOrRemoveReminder() {
+    public fun addOrRemoveReminder(calendar: Calendar?) {
 
     }
 

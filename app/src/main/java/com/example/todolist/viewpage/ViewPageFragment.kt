@@ -19,18 +19,26 @@ import com.example.todolist.TaskDatabase
 import com.example.todolist.databinding.ViewPageFragmentBinding
 import com.example.todolist.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class ViewPageFragment : DialogFragment(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
+
+    private var day = 0
+    private var month = 0
+    private var year = 0
+    private var hour = 0
+    private var minute = 0
+    private var calendar: Calendar? = null
+
     private val viewModel: ViewPageViewModel by viewModels()
     override fun onCreateView(
-
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-
     ): View? {
+
 
         val binding = ViewPageFragmentBinding.inflate(inflater)
 
@@ -51,7 +59,7 @@ class ViewPageFragment : DialogFragment(), DatePickerDialog.OnDateSetListener,
 
         viewModel.navigateToDatePicker.observe(this, Observer {
             if (it) {
-                DatePickerDialog(this.requireContext(), this, 0, 0, 0).show()
+                DatePickerDialog(this.requireContext(), this, year, month, day).show()
             }
             viewModel.finishedSettingReminder()
         })
@@ -60,12 +68,28 @@ class ViewPageFragment : DialogFragment(), DatePickerDialog.OnDateSetListener,
         return binding.root
     }
 
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        TODO("Not yet implemented")
+    private fun getDateTimeCalender() {
+        val cal = Calendar.getInstance()
+        day = cal.get(Calendar.DAY_OF_MONTH)
+        month = cal.get(Calendar.MONTH)
+        year = cal.get(Calendar.YEAR)
+        hour = cal.get(Calendar.HOUR_OF_DAY)
+        minute = cal.get(Calendar.MINUTE)
     }
 
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        TODO("Not yet implemented")
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        calendar = Calendar.getInstance()
+        calendar!!.set(year, month, dayOfMonth)
+        getDateTimeCalender()
+        TimePickerDialog(context, this, hour, minute, true).show()
     }
+
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        calendar!!.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        calendar!!.set(Calendar.MINUTE, minute)
+        calendar!!.set(Calendar.SECOND, 0)
+    }
+
 
 }

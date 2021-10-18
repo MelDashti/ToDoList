@@ -15,7 +15,7 @@ fun TextView.setHeader(task: Task) {
 
 @BindingAdapter("updateText")
 fun TextView.setText(task: Task) {
-    if (task.body != null ) {
+    if (task.body != null) {
         text = task.body
         visibility = View.VISIBLE
     } else visibility = View.GONE
@@ -32,5 +32,6 @@ fun TextView.addTime(task: Task) {
         val time = "" + cl.get(Calendar.HOUR_OF_DAY).toString() + ":" + cl.get(Calendar.MINUTE)
             .toString()
         text = time
-    }
+        visibility = View.VISIBLE
+    } else visibility = View.GONE
 }

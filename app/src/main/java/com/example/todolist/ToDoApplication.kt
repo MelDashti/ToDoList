@@ -1,6 +1,9 @@
 package com.example.todolist
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
+import com.example.todolist.util.PREF_DARK_THEME
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -10,5 +13,14 @@ import timber.log.Timber
 class ToDoApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val mode = sharedPreferences.getBoolean(PREF_DARK_THEME,false)
+        if (mode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+        }
+
     }
 }

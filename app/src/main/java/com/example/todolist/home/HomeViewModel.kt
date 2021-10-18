@@ -8,7 +8,6 @@ import kotlinx.coroutines.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
-
 @HiltViewModel
 public class HomeViewModel @Inject constructor(private val repository: TaskRepository) :
     ViewModel() {
@@ -40,6 +39,7 @@ public class HomeViewModel @Inject constructor(private val repository: TaskRepos
         val list4 = MutableLiveData<List<Task>>()
         val list2 = ArrayList<Task>(list)
         when (currentFiltering.value) {
+
             FilterType.ACTIVE_TASKS -> {
                 list4.value = list
                 return list4
@@ -114,7 +114,6 @@ public class HomeViewModel @Inject constructor(private val repository: TaskRepos
     fun setFiltering(filter: FilterType) {
         currentFiltering.value = filter
 //depending on the filter type,we set the filtering label, icon labels, etc.
-
     }
 
     fun startSearch() {

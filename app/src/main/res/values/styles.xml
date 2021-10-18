@@ -12,6 +12,22 @@
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
     </style>
 
+    <!-- Dark Theme -->
+    <style name="DarkTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#F3F0D7</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimaryDark">#F7D59C</item>
+        <item name="colorPrimaryVariant">#ffffcd</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorSecondary">#CEE5D0</item>
+        <item name="colorSecondaryVariant">#9db39f</item>
+        <item name="colorOnSecondary">#000000</item>
+        <!-- Status bar color. -->
+        <!-- Customize your theme here. -->
+    </style>
+
+
     <style name="CustomChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/selected_highlight</item>
         <item name="android:textAlignment">center</item>
