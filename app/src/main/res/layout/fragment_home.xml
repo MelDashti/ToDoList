@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.todolist.home.HomeViewModel" />
+            type="com.example.todolist.SharedViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

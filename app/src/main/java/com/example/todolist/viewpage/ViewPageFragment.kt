@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.todolist.SharedViewModel
 
 import com.example.todolist.TaskDatabase
 import com.example.todolist.databinding.ViewPageFragmentBinding
@@ -25,7 +27,6 @@ import java.util.*
 class ViewPageFragment : DialogFragment(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
-
     private var day = 0
     private var month = 0
     private var year = 0
@@ -33,7 +34,10 @@ class ViewPageFragment : DialogFragment(), DatePickerDialog.OnDateSetListener,
     private var minute = 0
     private var calendar: Calendar? = null
 
-    private val viewModel: ViewPageViewModel by viewModels()
+    private val viewModel: SharedViewModel by activityViewModels<SharedViewModel>()
+
+
+//    private val viewModel: ViewPageViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

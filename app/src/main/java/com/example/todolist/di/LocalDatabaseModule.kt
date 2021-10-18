@@ -1,12 +1,14 @@
 package com.example.todolist.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Dao
 import com.example.todolist.TaskDatabase
 import com.example.todolist.TaskDatabaseDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -27,6 +29,12 @@ object LocalDatabaseModule {
     @Provides
     fun provideTaskDatabase(application: Application): TaskDatabase {
         return TaskDatabase.getInstance(application)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApplication(@ApplicationContext app: Context): Application {
+        return app as Application
     }
 
 

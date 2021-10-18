@@ -25,7 +25,9 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
+import com.example.todolist.SharedViewModel
 import com.example.todolist.util.PREF_DARK_THEME
 import kotlin.reflect.jvm.internal.impl.load.java.Constant
 
@@ -34,15 +36,19 @@ import kotlin.reflect.jvm.internal.impl.load.java.Constant
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+
     lateinit var binding: FragmentHomeBinding
-    private val viewModel: HomeViewModel by viewModels()
+//    private val viewModel: HomeViewModel by viewModels()
     private lateinit var sharedPreferences: SharedPreferences
     private var isDarkModeEnabled = false
+
+    private val viewModel: SharedViewModel by activityViewModels<SharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentHomeBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -133,15 +139,6 @@ class HomeFragment : Fragment() {
             }
         }
     }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item.title.equals("About")) {
-//            Log.d("hellothere", "hahaah")
-//        }
-//
-//        return super.onOptionsItemSelected(item)
-//
-//    }
 
     private fun initializeSearch() {
         val searchView = binding.toolbarRef.searchBar
