@@ -26,6 +26,31 @@ public class SharedViewModel @Inject constructor(
     private val application: Application
 ) : ViewModel() {
 
+
+    private var day = 0
+    private var month = 0
+    private var year = 0
+    private var hour = 0
+    private var minute = 0
+    private var taskId: Long = 0
+    private lateinit var task2: Task
+    var header2 = MutableLiveData<String>()
+    var body2 = MutableLiveData<String>()
+    private val _navigateToNote = MutableLiveData<Boolean>()
+    public val navigateToNote: LiveData<Boolean>
+        get() = _navigateToNote
+
+    private val _navigateToTime = MutableLiveData<Boolean>()
+    public val navigateToTime: LiveData<Boolean>
+        get() = _navigateToTime
+
+    private val _navigateBackToHomePage = MutableLiveData<Boolean>()
+    public val navigateBackToHomePage: LiveData<Boolean>
+        get() = _navigateBackToHomePage
+
+    val job = Job();
+    val scope = CoroutineScope(Dispatchers.Main + job)
+
     private val _navigateBackToHome = MutableLiveData<Boolean>()
     public val navigateBackToHome: LiveData<Boolean>
         get() = _navigateBackToHome
@@ -52,10 +77,91 @@ public class SharedViewModel @Inject constructor(
     init {
 
         task.value = Task()
+        task2 = Task()
         _startSearch.value = false
         searchNow("")
         //        initializeLatestTask()
     }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------//
+    //Bottom sheet view model code//
+    fun navigateToNote() {
+        _navigateToNote.value = true
+    }
+
+    fun finishedNavNote() {
+        _navigateToNote.value = false
+    }
+
+    fun navigateToTime() {
+        Log.i("hey", "haa")
+        _navigateToTime.value = true
+    }
+
+    fun finishedNavTime() {
+        _navigateToTime.value = false
+    }
+
+    private fun addNewTask(calendar: Calendar?) {
+
+        if (header2.value.equals(null)) {
+            showError()
+        } else {
+            task2.header = header2.value!!
+            task2.body = body2.value
+            if (calendar != null) {
+                task2.timeInMillis = calendar.timeInMillis
+            }
+            scope.launch(Dispatchers.IO) {
+                val taskIdd = repository.insertTask(task2)
+                if (header2.value != null && calendar != null)
+                    startTimer(calendar, taskIdd)
+            }
+        }
+
+    }
+
+
+    public fun addNew(calendar: Calendar?) {
+        addNewTask(calendar)
+    }
+
+
+    fun navigateBack2() {
+        _navigateBackToHomePage.value = true
+    }
+
+    fun showError() {
+        Toast.makeText(application, "No Text Entered", Toast.LENGTH_SHORT).show()
+    }
+
+    fun finishedNav2() {
+        _navigateBackToHomePage.value = false
+    }
+
+    private fun startTimer(calendar: Calendar?, taskIdd: Long) {
+        val alarmManager =
+            application.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(application, AlarmReceiver::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.putExtra("taskId", taskIdd)
+        intent.putExtra("message", header2.value.toString())
+        val pendingIntent = PendingIntent.getBroadcast(
+            application,
+            (Date().time / 1000L % Int.MAX_VALUE).toInt(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar!!.timeInMillis, pendingIntent)
+    }
+
+// End of bottom sheet view model code
+
+
+
+
+
+
 
 
     val chipFilterResults: LiveData<List<Task>> = _forceUpdate.switchMap { hey: Boolean ->
@@ -207,14 +313,16 @@ public class SharedViewModel @Inject constructor(
         _navigateBackToHome.value = false
     }
 
-    init {
-    }
 
     override fun onCleared() {
         super.onCleared()
+        job.cancel()
     }
 
     fun finishedSettingReminder() {
         _navigateToDatePicker.value = false
     }
+
+
+
 }

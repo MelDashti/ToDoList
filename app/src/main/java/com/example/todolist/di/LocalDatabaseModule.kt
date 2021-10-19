@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.room.Dao
 import com.example.todolist.TaskDatabase
 import com.example.todolist.TaskDatabaseDao
+import com.example.todolist.ToDoApplication
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,8 +34,8 @@ object LocalDatabaseModule {
 
     @Singleton
     @Provides
-    fun provideApplication(@ApplicationContext app: Context): Application {
-        return app as Application
+    fun provideApplication(@ApplicationContext app: Context): ToDoApplication {
+        return app as ToDoApplication
     }
 
 
