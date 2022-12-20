@@ -5,14 +5,12 @@ import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.todolist.home.FilterType
 import com.example.todolist.receiver.AlarmReceiver
 import com.example.todolist.repository.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,23 +19,16 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-public class SharedViewModel @Inject constructor(
+class SharedViewModel @Inject constructor(
     private val repository: TaskRepository,
     private val application: Application
 ) : ViewModel() {
 
-
-    private var day = 0
-    private var month = 0
-    private var year = 0
-    private var hour = 0
-    private var minute = 0
-    private var taskId: Long = 0
-    private lateinit var task2: Task
+    private var task2: Task
     var header2 = MutableLiveData<String>()
     var body2 = MutableLiveData<String>()
     private val _navigateToNote = MutableLiveData<Boolean>()
-    public val navigateToNote: LiveData<Boolean>
+    val navigateToNote: LiveData<Boolean>
         get() = _navigateToNote
 
     private val _navigateToTime = MutableLiveData<Boolean>()
@@ -45,22 +36,21 @@ public class SharedViewModel @Inject constructor(
         get() = _navigateToTime
 
     private val _navigateBackToHomePage = MutableLiveData<Boolean>()
-    public val navigateBackToHomePage: LiveData<Boolean>
+    val navigateBackToHomePage: LiveData<Boolean>
         get() = _navigateBackToHomePage
 
-    val job = Job();
-    val scope = CoroutineScope(Dispatchers.Main + job)
+    private val job = Job();
+    private val scope = CoroutineScope(Dispatchers.Main + job)
 
     private val _navigateBackToHome = MutableLiveData<Boolean>()
-    public val navigateBackToHome: LiveData<Boolean>
+    val navigateBackToHome: LiveData<Boolean>
         get() = _navigateBackToHome
 
     private val _navigateToDatePicker = MutableLiveData<Boolean>()
-    public val navigateToDatePicker: LiveData<Boolean>
+    val navigateToDatePicker: LiveData<Boolean>
         get() = _navigateToDatePicker
 
     var task = MutableLiveData<Task?>()
-
     private var currentFiltering = MutableLiveData<FilterType>(FilterType.ACTIVE_TASKS)
 
     //this will update your list
@@ -75,7 +65,6 @@ public class SharedViewModel @Inject constructor(
 
 
     init {
-
         task.value = Task()
         task2 = Task()
         _startSearch.value = false
@@ -89,12 +78,8 @@ public class SharedViewModel @Inject constructor(
         _navigateToNote.value = true
     }
 
-    fun finishedNavNote() {
-        _navigateToNote.value = false
-    }
 
     fun navigateToTime() {
-        Log.i("hey", "haa")
         _navigateToTime.value = true
     }
 
@@ -118,20 +103,17 @@ public class SharedViewModel @Inject constructor(
                     startTimer(calendar, taskIdd)
             }
         }
-
     }
-
 
     public fun addNew(calendar: Calendar?) {
         addNewTask(calendar)
     }
 
-
     fun navigateBack2() {
         _navigateBackToHomePage.value = true
     }
 
-    fun showError() {
+    private fun showError() {
         Toast.makeText(application, "No Text Entered", Toast.LENGTH_SHORT).show()
     }
 
@@ -156,12 +138,6 @@ public class SharedViewModel @Inject constructor(
     }
 
 // End of bottom sheet view model code
-
-
-
-
-
-
 
 
     val chipFilterResults: LiveData<List<Task>> = _forceUpdate.switchMap { hey: Boolean ->
@@ -269,10 +245,8 @@ public class SharedViewModel @Inject constructor(
             task.value = repository.getTask(taskId)
             header.value = task.value?.header
             body.value = task.value?.body
-
         }
     }
-
 
     public fun showReminder() {
         _navigateToDatePicker.value = true
@@ -322,7 +296,6 @@ public class SharedViewModel @Inject constructor(
     fun finishedSettingReminder() {
         _navigateToDatePicker.value = false
     }
-
 
 
 }

@@ -1,35 +1,24 @@
 package com.example.todolist.home
 
 import android.content.SharedPreferences
-import android.content.res.loader.ResourcesLoader
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.todolist.R
 import com.example.todolist.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.prefs.Preferences
 import androidx.appcompat.widget.SwitchCompat
-
 import android.view.MenuInflater
 import android.widget.CompoundButton
-import android.widget.SearchView
-import android.widget.Toast
-
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
 import com.example.todolist.SharedViewModel
-import com.example.todolist.util.PREF_DARK_THEME
-import kotlin.reflect.jvm.internal.impl.load.java.Constant
 
 // annotating android classes with @androidEntryPoint creates a dependency container that follows the android class lifecycle
 //now hilt will create a dependencies container that is attached to homefragment's lifecycle and will be able to inject instances to Home fragment
@@ -56,7 +45,6 @@ class HomeFragment : Fragment() {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-
         val adapter = TaskAdapter(TaskListener {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToViewPageFragment(it)
@@ -79,21 +67,21 @@ class HomeFragment : Fragment() {
         )
 
         binding.taskList.addItemDecoration(dividerItemDecoration)
-        viewModel.navigateToBottomSheet.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToBottomSheet.observe(viewLifecycleOwner, {
             if (it) {
                 findNavController().navigate(R.id.action_homeFragment_to_bottomSheetFragment)
                 viewModel.onNavigatedToSearch()
             }
         })
-        viewModel.searchResultList.observe(viewLifecycleOwner, Observer {
+        viewModel.searchResultList.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
 
-        viewModel.chipFilterResults.observe(viewLifecycleOwner, Observer {
+        viewModel.chipFilterResults.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
 
-        viewModel.startSearch.observe(viewLifecycleOwner, Observer {
+        viewModel.startSearch.observe(viewLifecycleOwner, {
             if (it) {
                 initializeSearch()
                 binding.dateList.visibility = View.GONE

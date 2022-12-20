@@ -19,12 +19,6 @@ import java.util.*
 
 public class BottomSheetViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var day = 0
-    private var month = 0
-    private var year = 0
-    private var hour = 0
-    private var minute = 0
-    private var taskId: Long = 0
     private lateinit var task2: Task
     var header2 = MutableLiveData<String>()
     var body2 = MutableLiveData<String>()
