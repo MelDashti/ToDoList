@@ -7,7 +7,7 @@
     <data>
         <variable
             name="secondaryViewModel"
-            type="com.example.todolist.home.HomeViewModel" />
+            type="com.example.todolist.SharedViewModel" />
     </data>
 
 

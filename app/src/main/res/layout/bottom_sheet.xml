@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.todolist.bottomsheet.BottomSheetViewModel" />
+            type="com.example.todolist.SharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             android:background="@android:color/transparent"
             android:hint="Enter Your Task"
             android:inputType="text|textMultiLine|textCapSentences"
-            android:text="@={viewModel.header}"
+            android:text="@={viewModel.header2}"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/ic_group_1"
-            android:onClick="@{()-> viewModel.navigateBack()}"
+            android:onClick="@{()-> viewModel.navigateBack2()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editText"
             app:layout_constraintTop_toTopOf="@+id/editText" />
@@ -52,7 +52,7 @@
             android:background="@android:color/transparent"
             android:hint="Enter Your Note"
             android:inputType="text|textMultiLine|textCapSentences"
-            android:text="@={viewModel.body}"
+            android:text="@={viewModel.body2}"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
