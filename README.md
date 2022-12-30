@@ -10,7 +10,6 @@ Todo list application is a simple and compact app where you can set reminders. T
 ## Techstack and Open Source libraries
 
 - [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines) for asynchronous operations.
-- [Retrofit2](https://github.com/square/retrofit) to make HTTP calls to the REST API.
 - [Material Components](https://github.com/material-components/material-components-android)
  to display Material Design Components.
 - Android Jetpack
@@ -31,6 +30,19 @@ Todo list application is a simple and compact app where you can set reminders. T
 - Reminder via notifications
 - Dark and Light theme
 
+## Screenshots
+
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562175.png" alt="drawing" width="200"/> 
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562793.png" alt="drawing" width="200"/>
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562822.png" alt="drawing" width="200"/>
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562835.png" alt="drawing" width="200"/>
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562856.png" alt="drawing" width="200"/>
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562866.png" alt="drawing" width="200"/>
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562949.png" alt="drawing" width="200"/>
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562953.png" alt="drawing" width="200"/>
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562966.png" alt="drawing" width="200"/>
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562026.png" alt="drawing" width="200"/>
+<img src="https://raw.githubusercontent.com/MelDashti/ToDoList/master/Screenshots/Screenshot_1671562036.png" alt="drawing" width="200"/>
 
 
 
