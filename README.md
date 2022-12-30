@@ -32,8 +32,7 @@ Todo list application is a simple and compact app where you can set reminders. T
 
 ## Screenshots
 
-<img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562175.png" alt="drawing" width="200"/> 
-<img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562793.png" alt="drawing" width="200"/>
+<img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562175.png" alt="drawing" width="200"/> <img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562793.png" alt="drawing" width="200"/>
 <img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562822.png" alt="drawing" width="200"/>
 <img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562835.png" alt="drawing" width="200"/>
 <img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562856.png" alt="drawing" width="200"/>
@@ -41,8 +40,8 @@ Todo list application is a simple and compact app where you can set reminders. T
 <img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562949.png" alt="drawing" width="200"/>
 <img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562953.png" alt="drawing" width="200"/>
 <img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562966.png" alt="drawing" width="200"/>
-<img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562026.png" alt="drawing" width="200"/>
-<img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671562036.png" alt="drawing" width="200"/>
+<img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671563026.png" alt="drawing" width="200"/>
+<img src="https://github.com/MelDashti/ToDoList/blob/master/Screenshots/Screenshot_1671563036.png" alt="drawing" width="200"/>
 
 
 
